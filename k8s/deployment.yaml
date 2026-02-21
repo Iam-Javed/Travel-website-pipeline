@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: travel-website
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: travel-website
+  template:
+    metadata:
+      labels:
+        app: travel-website
+    spec:
+      containers:
+      - name: travel-website
+        image: misterj25/travel-website:latest
+        ports:
+        - name: travel-port
+          containerPort: 80
+          protocol: TCP

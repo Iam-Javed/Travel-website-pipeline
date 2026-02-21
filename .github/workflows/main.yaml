@@ -55,3 +55,30 @@ jobs:
         run: |
           docker tag travel-website:latest ${{ secrets.DOCKER_USERNAME }}/travel-website:latest
           docker push ${{ secrets.DOCKER_USERNAME }}/travel-website:latest
+    
+  deploy:
+    runs-on: ubuntu-latest
+    environment: Prod1
+    needs: Push
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Install kubectl
+        uses: azure/setup-kubectl@v4
+        with:
+          version: v1.29.0
+
+      - name: Configure kubeconfig
+        run: |
+          mkdir -p ~/.kube
+          echo "${{ secrets.KUBECONFIG_DATA }}" > ~/.kube/config
+          chmod 600 ~/.kube/config
+
+      - name: Verify cluster connection
+        run: kubectl get nodes
+
+      - name: Deploy manifests
+        run: |
+          kubectl apply -f k8s/deployment.yaml
+          kubectl apply -f k8s/service.yaml
