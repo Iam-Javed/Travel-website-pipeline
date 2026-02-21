@@ -15,8 +15,8 @@ find the images FYR
 
 This project demonstrates a real-world CI/CD workflow using
 
-**GIT**
-**VS Code**
+**GIT**,
+**VS Code**,
 **GitHub**,
 **Docker**,
 **Kubernetes** and
@@ -27,10 +27,15 @@ This project demonstrates a real-world CI/CD workflow using
 ## ✨ Project Highlights
 
 ✔ Dockerized travel website application
+
 ✔ CI pipeline using GitHub Actions
+
 ✔ Image pushed to Docker Hub
+
 ✔ Automated deployment to a Kubernetes cluster
+
 ✔ Cluster created using kOps on AWS
+
 ✔ External access using Kubernetes LoadBalancer Service
 
 ---
@@ -78,7 +83,7 @@ Developer Push → GitHub Actions
 │   └── service.yaml
 └── .github/
     └── workflows/
-        └── travel-website.yml
+        └── main.yaml
 ```
 
 ---
@@ -248,7 +253,7 @@ This project demonstrates:
 
 ## 👨‍💻 Author
 
-**Javed**
+**Javed Shaik**
 
-Windows Administrator → Aspiring DevOps Engineer
-Hands-on project focused on real production-style DevOps workflows.
+DevOps Engineer
+Hands-on project focused on real production-style DevOps End to End workflows.
