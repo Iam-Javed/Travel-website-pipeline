@@ -2,7 +2,19 @@
 
 A complete DevOps pipeline that builds a Docker image, pushes it to Docker Hub and deploys the application to a Kubernetes cluster created using kOps on AWS.
 
+find the images FYR
+
+**Workflow**
+![alt text](image-1.png)
+
+**k8s cluster**
+![alt text](image-2.png)
+
+**website**
+![alt text](image.png)
+
 This project demonstrates a real-world CI/CD workflow using
+
 **GIT**
 **VS Code**
 **GitHub**,
