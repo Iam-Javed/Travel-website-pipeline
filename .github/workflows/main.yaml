@@ -1,0 +1,55 @@
+#Workflow for my end to end tarvel website project.
+
+name: End to End Travel Website Workflow
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+  workflow_dispatch:
+  schedule:
+    - cron: '0 0 * * *' # Runs every day at midnight
+
+jobs:
+  Build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Code Checkout
+        uses: actions/checkout@v5
+      
+      - name: Docker Image Build
+        run: |
+          docker build --file docker/Dockerfile --tag travel-website:latest .
+      
+      - name: Save Docker image
+        run: docker save travel-website:latest -o travel-website.tar
+      
+      - name: Upload Docker Image as Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: travel-website-image
+          path: travel-website.tar
+
+  Push:
+    runs-on: ubuntu-latest
+    needs: Build
+    steps:
+      - name: Download Docker Image Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: travel-website-image
+
+      - name: Load Docker Image
+        run: docker load -i travel-website.tar
+
+      - name: Login to Docker Hub
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+
+      - name: Tag image and push to Docker Hub
+        run: |
+          docker tag travel-website:latest ${{ secrets.DOCKER_USERNAME }}/travel-website:latest
+          docker push ${{ secrets.DOCKER_USERNAME }}/travel-website:latest
