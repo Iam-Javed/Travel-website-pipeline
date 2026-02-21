@@ -20,7 +20,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Code Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v4
       
       - name: Docker Image Build
         run: |
@@ -37,6 +37,7 @@ jobs:
 
   Push:
     runs-on: ubuntu-latest
+    environment: Prod1
     needs: Build
     steps:
       - name: Download Docker Image Artifact
